@@ -44,13 +44,13 @@ enum JobStatus: Equatable {
 
     var tint: Color {
         switch self {
-        case .queued:     return .secondary
-        case .probing:    return Theme.accentStart
-        case .converting: return Theme.accentStart
-        case .completed:  return Color(red: 0.16, green: 0.66, blue: 0.36)
-        case .failed:     return Color(red: 0.86, green: 0.28, blue: 0.25)
-        case .cancelled:  return .secondary
-        case .skipped:    return Color(red: 0.85, green: 0.55, blue: 0.12)
+        case .queued:     return Theme.textSecondary
+        case .probing:    return Theme.brandPrimary
+        case .converting: return Theme.brandPrimary
+        case .completed:  return Theme.success
+        case .failed:     return Theme.danger
+        case .cancelled:  return Theme.textSecondary
+        case .skipped:    return Theme.warning
         }
     }
 }

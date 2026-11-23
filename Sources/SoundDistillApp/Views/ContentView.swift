@@ -8,11 +8,11 @@ struct ContentView: View {
 
     var body: some View {
         ZStack {
-            Theme.background.ignoresSafeArea()
+            Theme.window.ignoresSafeArea()
 
             VStack(spacing: 0) {
                 HeaderBar()
-                Divider().opacity(0.6)
+                Rectangle().fill(Theme.border).frame(height: 1)
 
                 if model.ffmpegStatus == .missing {
                     FFmpegMissingView()
@@ -21,16 +21,16 @@ struct ContentView: View {
                     HStack(spacing: 0) {
                         MainQueueArea(isDropTargeted: isDropTargeted)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        Divider().opacity(0.6)
+                        Rectangle().fill(Theme.border).frame(width: 1)
                         SettingsPanel()
                             .frame(width: 318)
                     }
                 }
 
-                Divider().opacity(0.6)
+                Rectangle().fill(Theme.border).frame(height: 1)
                 BottomBar()
             }
-            .background(Theme.background)
+            .background(Theme.window)
 
             if let toast = model.toast {
                 VStack {
@@ -104,7 +104,7 @@ private struct MainQueueArea: View {
                 QueueView()
             }
         }
-        .background(Theme.background)
+        .background(Theme.window)
     }
 }
 
@@ -118,9 +118,10 @@ struct HeaderBar: View {
             VStack(alignment: .leading, spacing: 1) {
                 Text("音萃 SoundDistill")
                     .font(.system(size: 17, weight: .bold, design: .rounded))
+                    .foregroundStyle(Theme.textPrimary)
                 Text("视频 → 高音质 MP3")
                     .font(.system(size: 11))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Theme.textSecondary)
             }
 
             Spacer()
@@ -132,7 +133,7 @@ struct HeaderBar: View {
             } label: {
                 Image(systemName: "questionmark.circle")
                     .font(.system(size: 15))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Theme.textSecondary)
             }
             .buttonStyle(.plain)
             .help("使用说明")
@@ -140,7 +141,7 @@ struct HeaderBar: View {
         }
         .padding(.horizontal, 20)
         .frame(height: 56)
-        .background(Theme.background)
+        .background(Theme.toolbar)
     }
 
     @ViewBuilder
@@ -148,37 +149,40 @@ struct HeaderBar: View {
         switch model.ffmpegStatus {
         case .checking:
             HStack(spacing: 6) {
-                ProgressView().controlSize(.small)
+                ProgressView().controlSize(.small).tint(Theme.textSecondary)
                 Text("检测 ffmpeg…")
             }
             .font(.system(size: 11))
-            .foregroundStyle(.secondary)
+            .foregroundStyle(Theme.textSecondary)
             .padding(.horizontal, 10)
             .frame(height: 24)
-            .background(Capsule().fill(Theme.cardBackground))
+            .background(Capsule().fill(Theme.control))
+            .overlay(Capsule().stroke(Theme.border, lineWidth: 0.8))
         case .available(let version):
             HStack(spacing: 6) {
-                Circle().fill(Color(red: 0.15, green: 0.68, blue: 0.38)).frame(width: 6, height: 6)
+                Circle().fill(Theme.success).frame(width: 6, height: 6)
                 Text("ffmpeg \(version)")
             }
             .font(.system(size: 11, weight: .medium))
-            .foregroundStyle(.secondary)
+            .foregroundStyle(Theme.textSecondary)
             .padding(.horizontal, 10)
             .frame(height: 24)
-            .background(Capsule().fill(Theme.cardBackground))
+            .background(Capsule().fill(Theme.control))
+            .overlay(Capsule().stroke(Theme.border, lineWidth: 0.8))
         case .missing:
             Button {
                 model.showHelp = true
             } label: {
                 HStack(spacing: 6) {
-                    Circle().fill(Color.orange).frame(width: 6, height: 6)
+                    Circle().fill(Theme.warning).frame(width: 6, height: 6)
                     Text("ffmpeg 未安装")
                 }
                 .font(.system(size: 11, weight: .medium))
-                .foregroundStyle(.orange)
+                .foregroundStyle(Theme.warning)
                 .padding(.horizontal, 10)
                 .frame(height: 24)
-                .background(Capsule().fill(Color.orange.opacity(0.1)))
+                .background(Capsule().fill(Theme.warning.opacity(0.12)))
+                .overlay(Capsule().stroke(Theme.warning.opacity(0.4), lineWidth: 0.8))
             }
             .buttonStyle(.plain)
         }
@@ -189,15 +193,8 @@ struct BrandMark: View {
     var size: CGFloat = 32
 
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: size * 0.28, style: .continuous)
-                .fill(Theme.accentGradient)
-            Image(systemName: "waveform")
-                .font(.system(size: size * 0.48, weight: .semibold))
-                .foregroundStyle(.white)
-        }
-        .frame(width: size, height: size)
-        .shadow(color: Theme.accentEnd.opacity(0.22), radius: 5, y: 2)
+        LogoMark(size: size)
+            .shadow(color: .black.opacity(0.28), radius: 4, y: 2)
     }
 }
 
@@ -210,14 +207,15 @@ struct ToastView: View {
                 .foregroundStyle(iconColor)
             Text(message.text)
                 .font(.system(size: 12, weight: .medium))
+                .foregroundStyle(Theme.textPrimary)
         }
         .padding(.horizontal, 14)
         .padding(.vertical, 9)
-        .background(.regularMaterial, in: Capsule())
+        .background(Theme.toolbar, in: Capsule())
         .overlay(
-            Capsule().stroke(Theme.separator.opacity(0.5), lineWidth: 0.8)
+            Capsule().stroke(Theme.border, lineWidth: 0.8)
         )
-        .shadow(color: .black.opacity(0.12), radius: 10, y: 4)
+        .shadow(color: .black.opacity(0.35), radius: 10, y: 4)
     }
 
     private var iconName: String {
@@ -230,9 +228,9 @@ struct ToastView: View {
 
     private var iconColor: Color {
         switch message.kind {
-        case .info: return Theme.accentStart
-        case .warning: return .orange
-        case .error: return .red
+        case .info: return Theme.brandPrimary
+        case .warning: return Theme.warning
+        case .error: return Theme.danger
         }
     }
 }
@@ -241,15 +239,16 @@ struct DropOverlay: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(Theme.accentStart.opacity(0.06))
+                .fill(Theme.selected.opacity(0.55))
             RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .strokeBorder(Theme.accentStart, style: StrokeStyle(lineWidth: 2, dash: [9, 7]))
+                .strokeBorder(Theme.brandPrimary, style: StrokeStyle(lineWidth: 2, dash: [9, 7]))
             VStack(spacing: 12) {
                 Image(systemName: "arrow.down.doc.fill")
                     .font(.system(size: 40, weight: .medium))
-                    .foregroundStyle(Theme.accentGradient)
+                    .foregroundStyle(Theme.brandPrimary)
                 Text("松开以添加视频")
                     .font(.system(size: 18, weight: .semibold))
+                    .foregroundStyle(Theme.textPrimary)
             }
         }
         .padding(18)

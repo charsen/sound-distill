@@ -15,10 +15,11 @@ struct BottomBar: View {
                 Text("MP3 · \(model.settings.quality.shortName)")
                     .font(.system(size: 10.5, weight: .medium))
             }
-            .foregroundStyle(.secondary)
+            .foregroundStyle(Theme.textSecondary)
             .padding(.horizontal, 9)
             .padding(.vertical, 4)
-            .background(Capsule().fill(Theme.cardBackground.opacity(0.8)))
+            .background(Capsule().fill(Theme.control))
+            .overlay(Capsule().stroke(Theme.border, lineWidth: 0.7))
 
             if model.completedCount > 0 {
                 Button {
@@ -49,7 +50,10 @@ struct BottomBar: View {
         }
         .padding(.horizontal, 20)
         .frame(height: 62)
-        .background(.bar)
+        .background(Theme.toolbar)
+        .overlay(alignment: .top) {
+            Rectangle().fill(Theme.border).frame(height: 1)
+        }
     }
 
     @ViewBuilder
@@ -60,32 +64,33 @@ struct BottomBar: View {
                 Text("准备就绪")
             }
             .font(.system(size: 11.5))
-            .foregroundStyle(.secondary)
+            .foregroundStyle(Theme.textSecondary)
         } else if model.isRunning {
             HStack(spacing: 8) {
-                ProgressView().controlSize(.small)
+                ProgressView().controlSize(.small).tint(Theme.brandPrimary)
                 Text("正在转换 \(model.activeCount) 项，已完成 \(model.completedCount) / \(model.jobs.count)")
             }
             .font(.system(size: 11.5))
-            .foregroundStyle(.secondary)
+            .foregroundStyle(Theme.textSecondary)
         } else {
             HStack(spacing: 10) {
                 Text("\(model.jobs.count) 个视频")
                     .font(.system(size: 11.5, weight: .medium))
+                    .foregroundStyle(Theme.textPrimary)
                 if model.queuedCount > 0 {
                     Text("\(model.queuedCount) 待转换")
                         .font(.system(size: 11))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Theme.textSecondary)
                 }
                 if model.completedCount > 0 {
                     Text("\(model.completedCount) 已完成")
                         .font(.system(size: 11))
-                        .foregroundStyle(Color(red: 0.16, green: 0.62, blue: 0.34))
+                        .foregroundStyle(Theme.success)
                 }
                 if model.failedCount > 0 {
                     Text("\(model.failedCount) 失败")
                         .font(.system(size: 11))
-                        .foregroundStyle(.red)
+                        .foregroundStyle(Theme.danger)
                 }
             }
         }

@@ -10,19 +10,20 @@ struct FFmpegMissingView: View {
             VStack(spacing: 18) {
                 ZStack {
                     Circle()
-                        .fill(Color.orange.opacity(0.11))
+                        .fill(Theme.warning.opacity(0.12))
                         .frame(width: 78, height: 78)
                     Image(systemName: "terminal")
                         .font(.system(size: 32, weight: .medium))
-                        .foregroundStyle(Color.orange)
+                        .foregroundStyle(Theme.warning)
                 }
 
                 VStack(spacing: 7) {
                     Text("需要安装 ffmpeg")
                         .font(.system(size: 22, weight: .bold, design: .rounded))
+                        .foregroundStyle(Theme.textPrimary)
                     Text("音萃使用 ffmpeg 解码视频并编码 MP3。安装后点击重新检测即可，无需重启。")
                         .font(.system(size: 12.5))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Theme.textSecondary)
                         .multilineTextAlignment(.center)
                         .frame(maxWidth: 430)
                 }
@@ -30,11 +31,12 @@ struct FFmpegMissingView: View {
                 HStack(spacing: 10) {
                     Text("brew install ffmpeg")
                         .font(.system(size: 13, weight: .medium, design: .monospaced))
+                        .foregroundStyle(Theme.textPrimary)
                         .textSelection(.enabled)
                         .padding(.horizontal, 14)
                         .padding(.vertical, 9)
-                        .background(RoundedRectangle(cornerRadius: 8).fill(Theme.cardBackground))
-                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Theme.separator.opacity(0.5), lineWidth: 0.8))
+                        .background(RoundedRectangle(cornerRadius: 8).fill(Theme.control))
+                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Theme.border, lineWidth: 0.8))
                     Button {
                         model.copyFFmpegInstallCommand()
                     } label: {
@@ -55,16 +57,16 @@ struct FFmpegMissingView: View {
 
                 Text("已安装但检测不到？请确认 ffmpeg 位于 /opt/homebrew/bin 或 /usr/local/bin。")
                     .font(.system(size: 10))
-                    .foregroundStyle(.tertiary)
+                    .foregroundStyle(Theme.textTertiary)
             }
             .padding(36)
             .background(
                 RoundedRectangle(cornerRadius: 20, style: .continuous)
-                    .fill(Theme.cardBackground.opacity(0.5))
+                    .fill(Theme.control.opacity(0.7))
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 20, style: .continuous)
-                    .stroke(Theme.separator.opacity(0.5), lineWidth: 0.8)
+                    .stroke(Theme.border, lineWidth: 0.8)
             )
             Spacer()
         }
@@ -84,9 +86,10 @@ struct HelpView: View {
                 VStack(alignment: .leading, spacing: 1) {
                     Text("音萃 SoundDistill 使用说明")
                         .font(.system(size: 16, weight: .bold))
+                        .foregroundStyle(Theme.textPrimary)
                     Text("SoundDistill · 从视频提取高音质 MP3")
                         .font(.system(size: 10.5))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Theme.textSecondary)
                 }
                 Spacer()
                 Button("完成") { dismiss() }
@@ -94,7 +97,7 @@ struct HelpView: View {
             }
             .padding(20)
 
-            Divider()
+            Rectangle().fill(Theme.border).frame(height: 1)
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 18) {
@@ -149,24 +152,24 @@ struct HelpView: View {
             }
             .frame(maxHeight: 470)
 
-            Divider()
+            Rectangle().fill(Theme.border).frame(height: 1)
 
             HStack {
                 Text("版本 \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0.0")")
                     .font(.system(size: 9.5))
-                    .foregroundStyle(.tertiary)
+                    .foregroundStyle(Theme.textTertiary)
                 Spacer()
                 if case .available(let version) = model.ffmpegStatus {
                     Text("ffmpeg \(version)")
                         .font(.system(size: 9.5))
-                        .foregroundStyle(.tertiary)
+                        .foregroundStyle(Theme.textTertiary)
                 }
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 10)
         }
         .frame(width: 580, height: 610)
-        .background(Theme.background)
+        .background(Theme.window)
         .focusEffectDisabled()
     }
 
@@ -174,17 +177,18 @@ struct HelpView: View {
         HStack(alignment: .top, spacing: 11) {
             Image(systemName: icon)
                 .font(.system(size: 14, weight: .medium))
-                .foregroundStyle(Theme.accentGradient)
+                .foregroundStyle(Theme.brandPrimary)
                 .frame(width: 20)
             VStack(alignment: .leading, spacing: 5) {
                 Text(title)
                     .font(.system(size: 12, weight: .semibold))
+                    .foregroundStyle(Theme.textPrimary)
                 ForEach(lines, id: \.self) { line in
                     HStack(alignment: .top, spacing: 6) {
-                        Text("•").foregroundStyle(.tertiary)
+                        Text("•").foregroundStyle(Theme.textTertiary)
                         Text(line)
                             .font(.system(size: 11))
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Theme.textSecondary)
                             .fixedSize(horizontal: false, vertical: true)
                     }
                 }

@@ -10,30 +10,16 @@ struct DropZoneView: View {
         VStack(spacing: 0) {
             Spacer(minLength: 12)
             VStack(spacing: 22) {
-                ZStack(alignment: .bottomTrailing) {
-                    RoundedRectangle(cornerRadius: 30, style: .continuous)
-                        .fill(Theme.accentStart.opacity(0.11))
-                        .frame(width: 118, height: 118)
-                    Image(systemName: "waveform")
-                        .font(.system(size: 50, weight: .medium))
-                        .foregroundStyle(Theme.accentGradient)
-                    ZStack {
-                        Circle()
-                            .fill(Theme.accentGradient)
-                            .frame(width: 34, height: 34)
-                        Image(systemName: "music.note")
-                            .font(.system(size: 15, weight: .bold))
-                            .foregroundStyle(.white)
-                    }
-                    .offset(x: 2, y: 3)
-                }
+                LogoMark(size: 118)
+                    .shadow(color: Theme.brandPrimary.opacity(0.22), radius: 26, y: 8)
 
                 VStack(spacing: 8) {
                     Text("把视频拖到这里")
                         .font(.system(size: 28, weight: .bold, design: .rounded))
+                        .foregroundStyle(Theme.textPrimary)
                     Text("自动提取音轨并转换为高音质 MP3，支持批量处理")
                         .font(.system(size: 13))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Theme.textSecondary)
                 }
 
                 HStack(spacing: 10) {
@@ -59,15 +45,16 @@ struct DropZoneView: View {
                         ForEach(formats, id: \.self) { format in
                             Text(format)
                                 .font(.system(size: 9, weight: .medium))
-                                .foregroundStyle(.secondary)
+                                .foregroundStyle(Theme.textSecondary)
                                 .padding(.horizontal, 7)
                                 .padding(.vertical, 3)
-                                .background(Capsule().fill(Theme.cardBackground))
+                                .background(Capsule().fill(Theme.control))
+                                .overlay(Capsule().stroke(Theme.border, lineWidth: 0.7))
                         }
                     }
                     Text("也支持其他 ffmpeg 可读取的视频格式")
                         .font(.system(size: 10))
-                        .foregroundStyle(.tertiary)
+                        .foregroundStyle(Theme.textTertiary)
                 }
 
                 HStack(spacing: 30) {
@@ -82,12 +69,12 @@ struct DropZoneView: View {
             .frame(maxWidth: 660)
             .background(
                 RoundedRectangle(cornerRadius: 22, style: .continuous)
-                    .fill(Theme.cardBackground.opacity(0.35))
+                    .fill(Theme.control.opacity(0.55))
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 22, style: .continuous)
                     .strokeBorder(
-                        isHighlighted ? Theme.accentStart : Theme.separator.opacity(0.7),
+                        isHighlighted ? Theme.brandPrimary : Theme.border,
                         style: StrokeStyle(lineWidth: isHighlighted ? 2 : 1.2, dash: [9, 7])
                     )
             )
@@ -97,7 +84,7 @@ struct DropZoneView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
             RadialGradient(
-                colors: [Theme.accentStart.opacity(0.07), .clear],
+                colors: [Theme.brandPrimary.opacity(0.09), .clear],
                 center: .top,
                 startRadius: 10,
                 endRadius: 520
@@ -112,7 +99,7 @@ struct DropZoneView: View {
                 .foregroundStyle(Theme.accentGradient)
             Text(title)
                 .font(.system(size: 10, weight: .medium))
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Theme.textSecondary)
         }
         .frame(width: 110)
     }

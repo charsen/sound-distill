@@ -1,3 +1,4 @@
+import AppKit
 import SwiftUI
 import SoundDistillCore
 
@@ -10,6 +11,8 @@ struct SoundDistillApp: App {
         Window("音萃 SoundDistill", id: "main") {
             ContentView()
                 .environmentObject(model)
+                .preferredColorScheme(.dark)
+                .tint(Theme.brandPrimary)
                 .frame(minWidth: 1020, minHeight: 660)
         }
         .defaultSize(width: 1160, height: 780)
@@ -42,6 +45,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.regular)
+        // 设计稿指定固定深色方案：即使系统处于浅色模式，窗口、菜单与面板也统一使用深色外观。
+        NSApp.appearance = NSAppearance(named: .darkAqua)
     }
 
     func application(_ application: NSApplication, open urls: [URL]) {

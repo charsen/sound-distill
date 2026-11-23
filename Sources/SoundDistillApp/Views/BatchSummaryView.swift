@@ -10,18 +10,19 @@ struct BatchSummaryView: View {
             HStack(spacing: 12) {
                 ZStack {
                     Circle()
-                        .fill(summary.hasIssues ? Color.orange.opacity(0.14) : Theme.accentStart.opacity(0.14))
+                        .fill(summary.hasIssues ? Theme.warning.opacity(0.14) : Theme.brandPrimary.opacity(0.14))
                         .frame(width: 44, height: 44)
                     Image(systemName: summary.hasIssues ? "exclamationmark" : "checkmark")
                         .font(.system(size: 19, weight: .semibold))
-                        .foregroundStyle(summary.hasIssues ? .orange : Theme.accentStart)
+                        .foregroundStyle(summary.hasIssues ? Theme.warning : Theme.brandPrimary)
                 }
                 VStack(alignment: .leading, spacing: 2) {
                     Text(summary.hasIssues ? "本批有未完成项" : "本批转换完成")
                         .font(.system(size: 20, weight: .bold, design: .rounded))
+                        .foregroundStyle(Theme.textPrimary)
                     Text("用时 \(formatDuration(summary.elapsed)) · 输出 \(summary.outputs.count) 个 MP3")
                         .font(.system(size: 11.5))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Theme.textSecondary)
                 }
                 Spacer()
                 Button("完成") { dismiss() }
@@ -29,27 +30,28 @@ struct BatchSummaryView: View {
             }
 
             HStack(spacing: 10) {
-                statCard(title: "成功", value: summary.completed, color: Color(red: 0.16, green: 0.66, blue: 0.36))
-                statCard(title: "失败", value: summary.failed, color: Color(red: 0.86, green: 0.28, blue: 0.25))
-                statCard(title: "跳过", value: summary.skipped, color: Color(red: 0.85, green: 0.55, blue: 0.12))
-                statCard(title: "取消", value: summary.cancelled, color: .secondary)
+                statCard(title: "成功", value: summary.completed, color: Theme.success)
+                statCard(title: "失败", value: summary.failed, color: Theme.danger)
+                statCard(title: "跳过", value: summary.skipped, color: Theme.warning)
+                statCard(title: "取消", value: summary.cancelled, color: Theme.textSecondary)
             }
 
             HStack(spacing: 10) {
                 Image(systemName: "internaldrive")
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Theme.textSecondary)
                 Text("本批输出总大小 \(JobItem.formatBytes(summary.outputBytes))")
                     .font(.system(size: 11.5))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Theme.textSecondary)
                 Spacer()
             }
             .padding(12)
-            .background(RoundedRectangle(cornerRadius: 9).fill(Theme.cardBackground.opacity(0.65)))
+            .background(RoundedRectangle(cornerRadius: 9).fill(Theme.control))
+            .overlay(RoundedRectangle(cornerRadius: 9).stroke(Theme.border, lineWidth: 0.7))
 
             if summary.hasIssues {
                 Text("失败项会保留在队列中，可回到主窗口选择音轨后重试；跳过项表示同名输出已存在。")
                     .font(.system(size: 10.5))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Theme.textSecondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
 
@@ -68,7 +70,7 @@ struct BatchSummaryView: View {
         }
         .padding(24)
         .frame(width: 480)
-        .background(Theme.background)
+        .background(Theme.window)
         .focusEffectDisabled()
     }
 
@@ -79,11 +81,12 @@ struct BatchSummaryView: View {
                 .foregroundStyle(color)
             Text(title)
                 .font(.system(size: 10.5))
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Theme.textSecondary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(10)
-        .background(RoundedRectangle(cornerRadius: 8).fill(Theme.cardBackground.opacity(0.65)))
+        .background(RoundedRectangle(cornerRadius: 8).fill(Theme.control))
+        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Theme.border, lineWidth: 0.7))
     }
 
     private func formatDuration(_ seconds: TimeInterval) -> String {
