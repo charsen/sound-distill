@@ -1,0 +1,23 @@
+/* 音萃 SoundDistill | 只定义颜色，不更改界面结构 */
+:root {
+  --sd-brand-primary: #099582;
+  --sd-brand-ink: #171B1D;
+  --sd-brand-primary-action: #067566;
+  --sd-brand-primary-hover: #099582;
+  --sd-dark-window: #171B1D;
+  --sd-dark-toolbar: #22292B;
+  --sd-dark-sidebar: #252C2E;
+  --sd-dark-control: #1C2224;
+  --sd-dark-border: #394345;
+  --sd-dark-selected: #183C37;
+  --sd-dark-text: #F2F5F4;
+  --sd-dark-secondary-text: #A4B1AF;
+  --sd-light-window: #F7FAF9;
+  --sd-light-toolbar: #FFFFFF;
+  --sd-light-sidebar: #F2F6F5;
+  --sd-light-control: #FFFFFF;
+  --sd-light-border: #DCE5E3;
+  --sd-light-selected: #E5F5F1;
+  --sd-light-text: #171B1D;
+  --sd-light-secondary-text: #60706E;
+}

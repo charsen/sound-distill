@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="456"
+   height="456"
+   viewBox="0 0 456 456"
+   version="1.1"
+   id="svg7"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs7" />
+  <title
+     id="title1">音萃 SoundDistill</title>
+  <g
+     transform="translate(8,8)"
+     id="g7">
+    <g
+       id="logo-symbol">
+      <path
+         d="M 104,1  L 324,1  C 382,1 422,45 422,102  L 422,246  C 385,210 355,138 232,120  C 306,132 328,157 312,193  C 292,239 209,262 205,335  L 104,335  C 47,335 2,292 2,236  L 2,103  C 2,47 46,1 104,1 Z"
+         fill="#F2F5F4"
+         id="path1" />
+      <path
+         d="M 99,76  C 92,72 89,72 85,73  C 75,76 74,85 74,96  L 74,249  C 74,269 86,279 100,271  L 226,191  C 244,180 244,161 226,151 Z"
+         fill="#171B1D"
+         id="path2" />
+      <path
+         d="M 337,185  C 331,227 296,252 263,280  C 230,307 224,338 232,366  C 243,405 282,422 326,422  C 381,422 421,388 430,347  C 439,310 421,287 388,249  L 350,202  C 345,196 341,187 337,185 Z"
+         fill="#099582"
+         id="path3" />
+      <rect
+         x="267"
+         y="301"
+         width="16"
+         height="41"
+         rx="8"
+         fill="#FFFFFF"
+         id="rect3" />
+      <rect
+         x="297"
+         y="286"
+         width="16"
+         height="69"
+         rx="8"
+         fill="#FFFFFF"
+         id="rect4" />
+      <rect
+         x="327"
+         y="263"
+         width="16"
+         height="115"
+         rx="8"
+         fill="#FFFFFF"
+         id="rect5" />
+      <rect
+         x="357"
+         y="286"
+         width="16"
+         height="69"
+         rx="8"
+         fill="#FFFFFF"
+         id="rect6" />
+      <rect
+         x="387"
+         y="301"
+         width="16"
+         height="41"
+         rx="8"
+         fill="#FFFFFF"
+         id="rect7" />
+    </g>
+  </g>
+</svg>

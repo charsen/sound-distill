@@ -1,0 +1,28 @@
+{
+  "brand": {
+    "primary": "#099582",
+    "ink": "#171B1D",
+    "primaryAction": "#067566",
+    "primaryHover": "#099582"
+  },
+  "dark": {
+    "window": "#171B1D",
+    "toolbar": "#22292B",
+    "sidebar": "#252C2E",
+    "control": "#1C2224",
+    "border": "#394345",
+    "selected": "#183C37",
+    "text": "#F2F5F4",
+    "secondaryText": "#A4B1AF"
+  },
+  "light": {
+    "window": "#F7FAF9",
+    "toolbar": "#FFFFFF",
+    "sidebar": "#F2F6F5",
+    "control": "#FFFFFF",
+    "border": "#DCE5E3",
+    "selected": "#E5F5F1",
+    "text": "#171B1D",
+    "secondaryText": "#60706E"
+  }
+}
