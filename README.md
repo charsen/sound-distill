@@ -59,7 +59,7 @@ Scripts/build_app.sh release
 
 ```bash
 Scripts/package_dmg.sh
-# build/音萃 SoundDistill-1.0.0.dmg
+# build/音萃 SoundDistill-1.0.1.dmg
 ```
 
 构建选项：
